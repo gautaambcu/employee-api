@@ -1,0 +1,15 @@
+{
+  "name": "employee-api",
+  "version": "1.0.0",
+  "description": "Employee Management API",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "body-parser": "^1.20.2",
+    "swagger-ui-express": "^4.6.3",
+    "yamljs": "^0.3.0"
+  }
+}

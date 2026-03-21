@@ -24,6 +24,6 @@ steps:
 
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: '<YOUR-SERVICE-CONNECTION>'
+    azureSubscription: 'azure-connection'
     appName: 'employee-api-gautam'
     package: '$(Build.ArtifactStagingDirectory)/app.zip'

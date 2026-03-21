@@ -1,3 +1,47 @@
+openapi: 3.0.0
+info:
+  title: Employee API
+  version: 1.0.0
+  description: API for managing employees
+
+servers:
+  - url: https://employee-api-gautam-c6chdddpb9bjdzfv.centralindia-01.azurewebsites.net
+
+paths:
+  /employees:
+    get:
+      summary: Get all employees
+      responses:
+        '200':
+          description: Successful response
+
+    post:
+      summary: Create a new employee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        '200':
+          description: Employee created
+
+  /employees/{id}:
+    get:
+      summary: Get employee by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Employee found
+        '404':
+          description: Not found
+
 components:
   schemas:
     Employee:

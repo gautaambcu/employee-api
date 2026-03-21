@@ -4,7 +4,6 @@ const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
 
 const app = express();
-const PORT = 3000;
 
 app.use(bodyParser.json());
 
@@ -16,6 +15,8 @@ const employeeRoutes = require("./routes/employeeRoutes");
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/employees", employeeRoutes);
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

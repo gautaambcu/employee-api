@@ -1,0 +1,38 @@
+name: Build and Deploy to Azure Container App
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  ACR_NAME: gautamacr123
+  CONTAINER_APP_NAME: employee-api-container
+  RESOURCE_GROUP: rg-docker
+  IMAGE_NAME: employee-api
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Build and Push Docker Image
+      run: |
+        az acr login --name $ACR_NAME
+        docker build -t $ACR_NAME.azurecr.io/$IMAGE_NAME:${{ github.sha }} .
+        docker push $ACR_NAME.azurecr.io/$IMAGE_NAME:${{ github.sha }}
+
+    - name: Deploy to Container App
+      run: |
+        az containerapp update \
+          --name $CONTAINER_APP_NAME \
+          --resource-group $RESOURCE_GROUP \
+          --image $ACR_NAME.azurecr.io/$IMAGE_NAME:${{ github.sha }}
